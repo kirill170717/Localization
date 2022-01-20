@@ -1,0 +1,2 @@
+# Localization
+ Unity localization scrips
