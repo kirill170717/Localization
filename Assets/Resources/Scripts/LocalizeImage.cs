@@ -2,10 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Name
-{
-    public static string image;
-}
+
 [RequireComponent(typeof(Image))]
 public class LocalizeImage : MonoBehaviour
 {
@@ -19,14 +16,14 @@ public class LocalizeImage : MonoBehaviour
     public void UpdateImage()
     {
         if (!image) return;
-        Invoke("UpdateLocale", 0);
+        Invoke(nameof(UpdateLocale), 0);
     }
 
     private void UpdateLocale()
     {
-        if (Name.image != null)
+        if (Name.Language != null)
         {
-            Sprite tmp = Resources.Load("Images/" + Name.image, typeof(Sprite)) as Sprite;
+            Sprite tmp = Resources.Load("Images/" + Name.Language, typeof(Sprite)) as Sprite;
             if (tmp != null)
                 image.sprite = tmp;
             return;

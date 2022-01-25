@@ -8,6 +8,11 @@ using System;
 Может дать правильный перевод для любого сохраненного идентификатора.
 Автоматически загружает последний использованный язык, если таковой имеется, используя PlayerPrefs.
 */
+public class Name
+{
+    public static string Language;
+}
+
 public class LocalizationManager : MonoBehaviour
 {
     private Dictionary<string, string> texts;
@@ -16,7 +21,7 @@ public class LocalizationManager : MonoBehaviour
     private string DefaultLanguage = "English";
     private string currentLanguage;
 
-    //Создайте делегат и события для использования в файле LocalText.cs:
+    //Создайте делегат и события для использования в файле LocaleText.cs:
     public delegate void LanguageChangedEventHandler();
     public event LanguageChangedEventHandler languageChanged;
 
@@ -29,16 +34,22 @@ public class LocalizationManager : MonoBehaviour
             try
             {
                 SetLocalization(newLang);
+                Name.Language = newLang;
             }
             catch (Exception e)
             {
                 Debug.Log(e);
                 Debug.Log("Trying Default Language: " + DefaultLanguage);
                 SetLocalization(DefaultLanguage);
+                Name.Language = DefaultLanguage;
             }
         }
         else
+        {
             SetLocalization(DefaultLanguage); //Если нет, мы используем значения по умолчанию.
+            Name.Language = DefaultLanguage;
+        }
+            
     }
 
     /*
@@ -47,12 +58,12 @@ public class LocalizationManager : MonoBehaviour
     */
     public void SetLocalization(string language)
     {
-        TextAsset textAsset = Resources.Load<TextAsset>("Locale_" + language);
+        TextAsset textAsset = Resources.Load<TextAsset>(language);
         if (textAsset != null)
         {
             texts = JsonConvert.DeserializeObject<Dictionary<string, string>>(textAsset.text);
             currentLanguage = language;
-            Name.image = language;
+            Name.Language = language;
             OnLanguageChanged();
         }
         else

@@ -10,9 +10,6 @@ public class LocaleText : MonoBehaviour
     [SerializeField]
     private string textID; //Идентификатор строкового ресурса, который мы хотим захватить.
 
-    [SerializeField]
-    private bool autoUpdate = true; //Применяет ли этот текст пользовательского интерфейса автоматически изменения в locale?
-
     private Text textComponent;
     private LocalizationManager localeManager;
 
@@ -21,9 +18,7 @@ public class LocaleText : MonoBehaviour
         //Ссылки на кэш:
         textComponent = GetComponent<Text>();
         localeManager = GameObject.FindWithTag("LocalizationManager").GetComponent<LocalizationManager>();
-        //Привязка события при автоматическом обновлении:
-        if (autoUpdate == true)
-            localeManager.languageChanged += UpdateLocale;
+        localeManager.languageChanged += UpdateLocale;
     }
 
     private void Start() 
