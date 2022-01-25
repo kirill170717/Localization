@@ -5,7 +5,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Image))]
 public class LocalizeImage : MonoBehaviour
 {
-    private Image image;
+    public Image image;
     public static void SetImage()
     {
         LocalizeImage[] image = GameObject.FindObjectsOfType<LocalizeImage>();

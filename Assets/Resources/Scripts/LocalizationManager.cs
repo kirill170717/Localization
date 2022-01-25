@@ -48,10 +48,8 @@ public class LocalizationManager : MonoBehaviour
         {
             SetLocalization(DefaultLanguage); //Если нет, мы используем значения по умолчанию.
             Name.Language = DefaultLanguage;
-        }
-            
+        }   
     }
-
     /*
     Устанавливает текущий язык, используемый функцией getText(), на указанный язык.
     <param name="language">Язык для изменения.</param>

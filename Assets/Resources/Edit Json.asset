@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce1efddd8ae3b5a458a2ff05e91bedee, type: 3}
   m_Name: Edit Json
   m_EditorClassIdentifier: 
-  key: hello
-  text: Hello
+  language: 
+  key: 
+  text: 
+  jsonText: 
