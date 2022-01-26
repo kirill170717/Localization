@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+public class Images : ScriptableObject
+{
+    
+}
 
 [RequireComponent(typeof(Image))]
 public class LocalizeImage : MonoBehaviour
@@ -20,14 +24,10 @@ public class LocalizeImage : MonoBehaviour
 
     private void UpdateLocale()
     {
-        if (Name.Language != null)
-        {
-            Sprite tmp = Resources.Load("Images/" + Name.Language, typeof(Sprite)) as Sprite;
-            if (tmp != null)
-                image.sprite = tmp;
-            return;
-        }
-        UpdateImage();
+        //Sprite tmp = Resources.Load("Images/" + , typeof(Sprite)) as Sprite;
+        //if (tmp != null)
+        //    image.sprite = tmp;
+        //UpdateImage();
     }
 
     private void Start()

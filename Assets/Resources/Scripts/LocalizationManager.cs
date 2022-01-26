@@ -1,21 +1,19 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using Newtonsoft.Json;
+﻿using UnityEngine;
 using System;
-
+using System.Collections.Generic;
+using Newtonsoft.Json;
 /*
 Управляет всеми текстовыми переводами. Должен быть доступен для всего, что имеет текст.
 Может дать правильный перевод для любого сохраненного идентификатора.
 Автоматически загружает последний использованный язык, если таковой имеется, используя PlayerPrefs.
 */
-public class Name
-{
-    public static string Language;
-}
 
 public class LocalizationManager : MonoBehaviour
 {
     private Dictionary<string, string> texts;
+
+    [SerializeField]
+    public List<SystemLanguage> languages = new List<SystemLanguage>();
 
     [SerializeField]
     private string DefaultLanguage = "English";
@@ -34,21 +32,18 @@ public class LocalizationManager : MonoBehaviour
             try
             {
                 SetLocalization(newLang);
-                Name.Language = newLang;
             }
             catch (Exception e)
             {
                 Debug.Log(e);
                 Debug.Log("Trying Default Language: " + DefaultLanguage);
                 SetLocalization(DefaultLanguage);
-                Name.Language = DefaultLanguage;
             }
         }
         else
         {
             SetLocalization(DefaultLanguage); //Если нет, мы используем значения по умолчанию.
-            Name.Language = DefaultLanguage;
-        }   
+        }
     }
     /*
     Устанавливает текущий язык, используемый функцией getText(), на указанный язык.
@@ -61,11 +56,10 @@ public class LocalizationManager : MonoBehaviour
         {
             texts = JsonConvert.DeserializeObject<Dictionary<string, string>>(textAsset.text);
             currentLanguage = language;
-            Name.Language = language;
             OnLanguageChanged();
         }
         else
-            throw new Exception("Localization Error!: " + language + " does not have a .txt resource!");
+            throw new Exception("Localization Error!: " + language + " does not have a .json resource!");
     }
     /*
     Получить текст по указанному идентификатору.

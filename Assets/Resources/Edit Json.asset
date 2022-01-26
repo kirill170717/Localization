@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce1efddd8ae3b5a458a2ff05e91bedee, type: 3}
   m_Name: Edit Json
   m_EditorClassIdentifier: 
-  language: 
-  key: 
-  text: 
-  jsonText: 
+  language: 30
+  key: 1
+  text: 1
+  jsonText: "{\r\n  \"title\": \"\u041F\u0440\u043E\u0441\u0442\u0430\u044F \u0438\u0433\u0440\u0430\",\r\n 
+    \"continue\": \"\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u044C\",\r\n 
+    \"newGame\": \"\u041D\u043E\u0432\u0430\u044F \u0438\u0433\u0440\u0430\",\r\n 
+    \"settings\": \"\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438\",\r\n 
+    \"exit\": \"\u0412\u044B\u0445\u043E\u0434\"\r\n}"
