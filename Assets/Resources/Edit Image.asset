@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce1efddd8ae3b5a458a2ff05e91bedee, type: 3}
-  m_Name: Edit Json
+  m_Script: {fileID: 11500000, guid: 52d1a3750ac24a14db618db4a784b1e0, type: 3}
+  m_Name: Edit Image
   m_EditorClassIdentifier: 
   language: 0
   key: 
-  text: 
+  image: {fileID: 0}
   jsonText: 
+  imageEdit: {fileID: 0}

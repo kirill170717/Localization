@@ -5,7 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - LocalizationManager
-  - JsonEdit
+  - TextEdit
+  - ImageEdit
   layers:
   - Default
   - TransparentFX
