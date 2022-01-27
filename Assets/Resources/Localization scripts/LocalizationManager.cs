@@ -13,9 +13,6 @@ public class LocalizationManager : MonoBehaviour
     private Dictionary<string, string> texts;
 
     [SerializeField]
-    public List<SystemLanguage> languages = new List<SystemLanguage>();
-
-    [SerializeField]
     private string DefaultLanguage = "English";
     private string currentLanguage;
 
@@ -26,9 +23,9 @@ public class LocalizationManager : MonoBehaviour
     private void Awake()
     {
         //Загрузите user preferences, если таковые имеются:
-        if (PlayerPrefs.HasKey("LAST_LANGUAGE"))
+        if (PlayerPrefs.HasKey("LastLanguage"))
         {
-            string newLang = PlayerPrefs.GetString("LAST_LANGUAGE");
+            string newLang = PlayerPrefs.GetString("LastLanguage");
             try
             {
                 SetLocalization(newLang);
@@ -51,7 +48,7 @@ public class LocalizationManager : MonoBehaviour
     */
     public void SetLocalization(string language)
     {
-        TextAsset textAsset = Resources.Load<TextAsset>("Localizations/" + language + ".json");
+        TextAsset textAsset = Resources.Load<TextAsset>("Localizations/" + language);
         if (textAsset != null)
         {
             texts = JsonConvert.DeserializeObject<Dictionary<string, string>>(textAsset.text);
@@ -78,7 +75,7 @@ public class LocalizationManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        PlayerPrefs.SetString("LAST_LANGUAGE", currentLanguage);
+        PlayerPrefs.SetString("LastLanguage", currentLanguage);
     }
 
     protected virtual void OnLanguageChanged()
