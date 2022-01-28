@@ -816,7 +816,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1944181041}
+      - m_Target: {fileID: 1041341310}
         m_TargetAssemblyTypeName: Buttons, Assembly-CSharp
         m_MethodName: SetGerman
         m_Mode: 1
@@ -1207,7 +1207,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1944181041}
+      - m_Target: {fileID: 1041341310}
         m_TargetAssemblyTypeName: Buttons, Assembly-CSharp
         m_MethodName: SetRussian
         m_Mode: 1
@@ -1267,6 +1267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1041341308}
   - component: {fileID: 1041341309}
+  - component: {fileID: 1041341310}
   m_Layer: 0
   m_Name: LocalizationManager
   m_TagString: LocalizationManager
@@ -1301,6 +1302,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultLanguage: English
+--- !u!114 &1041341310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041341307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9508467edcf79f941aeced333e2c083d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1061640152
 GameObject:
   m_ObjectHideFlags: 0
@@ -1616,10 +1629,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1201543736}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dc26a16e54b0e848a3065100f42a737, type: 3}
+  m_Script: {fileID: 11500000, guid: 1bf2c499368200141baa0d6b1c69dbbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  dictionaryData: {fileID: 11400000, guid: 1990b9b1ac9536b439da8725ee8f7148, type: 2}
+  Key: Flag
 --- !u!1 &1534662198
 GameObject:
   m_ObjectHideFlags: 0
@@ -1992,49 +2006,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1924943292}
   m_CullTransparentMesh: 1
---- !u!1 &1944181040
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1944181042}
-  - component: {fileID: 1944181041}
-  m_Layer: 0
-  m_Name: Buttons
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1944181041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1944181040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9508467edcf79f941aeced333e2c083d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1944181042
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1944181040}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 381.85474, y: 236.57895, z: -347.69943}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1983238779
 GameObject:
   m_ObjectHideFlags: 0
@@ -2118,7 +2089,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1944181041}
+      - m_Target: {fileID: 1041341310}
         m_TargetAssemblyTypeName: Buttons, Assembly-CSharp
         m_MethodName: SetEnglish
         m_Mode: 1
@@ -2168,50 +2139,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1983238779}
   m_CullTransparentMesh: 1
---- !u!1 &2009789450
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2009789452}
-  - component: {fileID: 2009789451}
-  m_Layer: 0
-  m_Name: ImageEdit
-  m_TagString: ImageEdit
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2009789451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2009789450}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95f971fbfb3dd1640811b8123e9d25d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  imageEditor: {fileID: 11400000, guid: de74c954e7c913248951f7176c121cca, type: 2}
---- !u!4 &2009789452
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2009789450}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2079383007
 GameObject:
   m_ObjectHideFlags: 0
