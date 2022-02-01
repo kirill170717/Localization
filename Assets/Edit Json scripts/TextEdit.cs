@@ -6,68 +6,81 @@ using Newtonsoft.Json;
 
 public class TextEdit : MonoBehaviour
 {
-    private Dictionary<string, string> texts;
-    public TextEditor textEditor;
+    public TextEditor editor;
 
-    public void Creating()
+    private static Dictionary<string, string> texts;
+
+    public void Creating(SystemLanguage language)
     {
-        Debug.Log(textEditor.language);
-        string path = Application.dataPath + "/Resources/Localizations/" + textEditor.language + ".json";
+        string path = Application.dataPath + "/Resources/Localizations/" + language + ".json";
         if (!File.Exists(path))
             File.WriteAllText(path, "{\n}");
         else
-            Debug.Log("The file " + textEditor.language + ".json already exists");
+            Debug.Log("The file " + language + ".json already exists");
         AssetDatabase.Refresh();
-        Outputing();
+        Outputing(language);
     }
-    public void Removing()
+    public void Removing(SystemLanguage language)
     {
-        string path1 = Application.dataPath + "/Resources/Localizations/" + textEditor.language + ".json";
-        string path2 = Application.dataPath + "/Resources/Localizations/" + textEditor.language + ".json.meta";
-        if (File.Exists(path1) && File.Exists(path2))
-        {
-            File.Delete(path1);
-            File.Delete(path2);
-        }
+        string path = Application.dataPath + "/Resources/Localizations/" + language + ".json";
+        if (File.Exists(path))
+            File.Delete(path);
         else
-            Debug.Log("The file " + textEditor.language + ".json doesn't exist");
+            Debug.Log("The file " + language + ".json doesn't exist");
         AssetDatabase.Refresh();
-        Outputing();
+        Outputing(language);
     }
-    public void Outputing()
+    public void Outputing(SystemLanguage language)
     {
-        TextAsset textAsset = Resources.Load<TextAsset>("Localizations/" + textEditor.language.ToString());
+        TextAsset textAsset = Resources.Load<TextAsset>("Localizations/" + language.ToString());
         if (textAsset != null)
-            textEditor.jsonText = textAsset.text;
+            editor.jsonText = textAsset.text;
         else
-            textEditor.jsonText = null;
-    }
-    public void Loading()
-    {
-        TextAsset textAsset = Resources.Load<TextAsset>("Localizations/" + textEditor.language.ToString());
-        if (textAsset != null)
         {
-            string path = Application.dataPath + "/Resources/Localizations/" + textEditor.language + ".json";
-            texts = JsonConvert.DeserializeObject<Dictionary<string, string>>(textAsset.text);
-            texts.Add(textEditor.key, textEditor.text);
-            string json = JsonConvert.SerializeObject(texts, Formatting.Indented);
-            File.WriteAllText(path, json);
-            AssetDatabase.Refresh();
-            Outputing();
+            Debug.Log("The file " + language + ".json doesn't exist");
+            editor.jsonText = null;
         }
     }
-    public void Deleting()
+    public void Loading(SystemLanguage language, string key, string text)
     {
-        TextAsset textAsset = Resources.Load<TextAsset>("Localizations/" + textEditor.language.ToString());
-        if (textAsset != null)
+        if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(text))
+            Debug.Log("The 'Key' or 'Text' field is empty");
+        else
         {
-            string path = Application.dataPath + "/Resources/Localizations/" + textEditor.language + ".json";
-            texts = JsonConvert.DeserializeObject<Dictionary<string, string>>(textAsset.text);
-            texts.Remove(textEditor.key);
-            string json = JsonConvert.SerializeObject(texts, Formatting.Indented);
-            File.WriteAllText(path, json);
-            AssetDatabase.Refresh();
-            Outputing();
+            TextAsset textAsset = Resources.Load<TextAsset>("Localizations/" + language.ToString());
+            if (textAsset != null)
+            {
+                string path = Application.dataPath + "/Resources/Localizations/" + language + ".json";
+                texts = JsonConvert.DeserializeObject<Dictionary<string, string>>(textAsset.text);
+                texts.Add(key, text);
+                string json = JsonConvert.SerializeObject(texts, Formatting.Indented);
+                File.WriteAllText(path, json);
+                AssetDatabase.Refresh();
+                Outputing(language);
+            }
+            else
+                Debug.Log("The file " + language + ".json doesn't exist");
+        }
+    }
+    public void Deleting(SystemLanguage language, string key)
+    {
+        if (string.IsNullOrEmpty(key))
+            Debug.Log("The 'Key' field is empty");
+        else
+        {
+            TextAsset textAsset = Resources.Load<TextAsset>("Localizations/" + language.ToString());
+            if (textAsset != null)
+            {
+                string path = Application.dataPath + "/Resources/Localizations/" + language + ".json";
+                texts = JsonConvert.DeserializeObject<Dictionary<string, string>>(textAsset.text);
+                texts.Remove(key);
+                string json = JsonConvert.SerializeObject(texts, Formatting.Indented);
+                File.WriteAllText(path, json);
+                AssetDatabase.Refresh();
+                Outputing(language);
+            }
+            else
+                Debug.Log("The file " + language + ".json doesn't exist");
         }
     }
 }

@@ -236,8 +236,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.6067}
-  m_SizeDelta: {x: 1224, y: 564.3195}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1290, y: 573}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &294422206
 MonoBehaviour:
@@ -464,6 +464,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 393880022}
   m_CullTransparentMesh: 1
+--- !u!1 &503133167
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 503133169}
+  - component: {fileID: 503133168}
+  m_Layer: 0
+  m_Name: DictionaryEdit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &503133168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503133167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bf2c499368200141baa0d6b1c69dbbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  editor: {fileID: 11400000, guid: 1990b9b1ac9536b439da8725ee8f7148, type: 2}
+--- !u!4 &503133169
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503133167}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1016,7 +1060,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffdcddb74e2e9e142a454f42fe8ae89b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textEditor: {fileID: 11400000, guid: 93d4ad27356037440b0ac99ec0df9a6f, type: 2}
+  editor: {fileID: 11400000, guid: 93d4ad27356037440b0ac99ec0df9a6f, type: 2}
 --- !u!4 &936786410
 Transform:
   m_ObjectHideFlags: 0
@@ -1301,7 +1345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b751bbb587508439f1d6de294081df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultLanguage: English
+  DefaultLanguage: 10
 --- !u!114 &1041341310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1503,8 +1547,8 @@ Canvas:
   m_GameObject: {fileID: 1077400070}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1632,8 +1676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bf2c499368200141baa0d6b1c69dbbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dictionaryData: {fileID: 11400000, guid: 1990b9b1ac9536b439da8725ee8f7148, type: 2}
-  Key: Flag
+  editor: {fileID: 0}
 --- !u!1 &1534662198
 GameObject:
   m_ObjectHideFlags: 0

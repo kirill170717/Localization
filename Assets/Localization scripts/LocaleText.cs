@@ -10,14 +10,12 @@ public class LocaleText : MonoBehaviour
     string textID; //Идентификатор ресурса, который мы хотим захватить.
 
     private Text textComponent;
-    private LocalizationManager localizationManager;
    
     private void Awake()
     {
         //Ссылки на кэш:
         textComponent = GetComponent<Text>();
-        localizationManager = GameObject.Find("LocalizationManager").GetComponent<LocalizationManager>();
-        localizationManager.languageChanged += UpdateLocale;
+        LocalizationManager.LanguageChanged += UpdateLocale;
     }
 
     private void Start()
@@ -33,7 +31,7 @@ public class LocaleText : MonoBehaviour
     {
         try
         {
-            string response = localizationManager.GetText(textID);
+            string response = LocalizationManager.GetText(textID);
             if (response != null)
                 textComponent.text = response;
         }

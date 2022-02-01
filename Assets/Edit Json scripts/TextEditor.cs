@@ -10,104 +10,57 @@ public class TextEditor : ScriptableObject
     public string key;
     [SerializeField]
     public string text;
+
     public string jsonText;
 
-    public SystemLanguage Language
-    {
-        get { return language; }
-    }
-    public string Key
-    {
-        get { return key; }
-    }
-    public string Text
-    {
-        get { return text; }
-    }
-
-    public TextEdit textEdit;
-
-    public void Create()
-    {
-        textEdit = GameObject.Find("TextEdit").GetComponent<TextEdit>();
-        textEdit.Creating();
-    }
-    public void Remove()
-    {
-        textEdit = GameObject.Find("TextEdit").GetComponent<TextEdit>();
-        textEdit.Removing();
-    }
-    public void Output()
-    {
-        textEdit = GameObject.Find("TextEdit").GetComponent<TextEdit>();
-        textEdit.Outputing();
-    }
-    public void Load()
-    {
-        if (key != "" && text != "")
-        {
-            textEdit = GameObject.Find("TextEdit").GetComponent<TextEdit>();
-            textEdit.Loading();
-        }
-        else
-            Debug.Log("The 'Key' or 'Text' field is empty");
-    }
-    public void Delete()
-    {
-        if (key != "")
-        {
-            textEdit = GameObject.Find("TextEdit").GetComponent<TextEdit>();
-            textEdit.Deleting();
-        }
-        else
-            Debug.Log("The 'Key' field is empty");
-    }
+    [SerializeField]
+    public TextEdit edit;
 }
 
 [CustomEditor(typeof(TextEditor))]
-public class EditGUI : Editor
+public class TextEditGUI : Editor
 {
     public override void OnInspectorGUI()
     {
-        TextEditor edit = (TextEditor)target;
-
+        TextEditor editor = (TextEditor)target;
+        editor.edit = (TextEdit)EditorGUILayout.ObjectField("Script", editor.edit, typeof(TextEdit), true);
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Language", GUILayout.MaxWidth(60));
-        edit.language = (SystemLanguage)EditorGUILayout.EnumPopup(edit.language);
+        editor.language = (SystemLanguage)EditorGUILayout.EnumPopup(editor.language);
         if (GUILayout.Button("Создать"))
         {
-            edit.Create();
+            editor.edit.Creating(editor.language);
         }
-        if (GUILayout.Button("Удалить"))
+        else if (GUILayout.Button("Удалить"))
         {
-            edit.Remove();
+            editor.edit.Removing(editor.language);
         }
         GUILayout.EndHorizontal();
 
         if (GUILayout.Button("Выбрать"))
         {
-            edit.Output();
+            editor.edit.Outputing(editor.language);
         }
         EditorGUILayout.Space();
 
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Key", GUILayout.MaxWidth(60));
-        edit.key = EditorGUILayout.TextField(edit.key);
+        editor.key = EditorGUILayout.TextField(editor.key);
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Text", GUILayout.MaxWidth(60));
-        edit.text = EditorGUILayout.TextField(edit.text);
+        editor.text = EditorGUILayout.TextField(editor.text);
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("Добавить"))
         {
-            edit.Load();
+            editor.edit.Loading(editor.language, editor.key, editor.text);
         }
         else if (GUILayout.Button("Удалить"))
         {
-            edit.Delete();
+            editor.edit.Deleting(editor.language, editor.key);
         }
         GUILayout.EndHorizontal();
 
@@ -120,6 +73,6 @@ public class EditGUI : Editor
             "и перевод в поле 'Text', чтобы удалить - введите нужный\n" +
             "ключ и нажмите 'Удалить'");
         EditorGUILayout.Space();
-        edit.jsonText = EditorGUILayout.TextArea(edit.jsonText);
+        editor.jsonText = EditorGUILayout.TextArea(editor.jsonText);
     }
 }

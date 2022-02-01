@@ -12,11 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57db3794eb388d148ad16ff2514edf2c, type: 3}
   m_Name: Images Dictionary
   m_EditorClassIdentifier: 
-  keys:
-  - English_Flag
-  - Russian_Flag
-  - German_Flag
-  sprites:
-  - {fileID: 21300000, guid: 80536b3461c0e5d41b78530e615b609a, type: 3}
-  - {fileID: 21300000, guid: 25026bc39bc199d4193c15307480fc36, type: 3}
-  - {fileID: 21300000, guid: a59d8fe9aa1ba594683b0710eca4fda3, type: 3}
+  key: flag
+  images:
+  - language: 10
+    sprite: {fileID: 21300000, guid: 80536b3461c0e5d41b78530e615b609a, type: 3}
+  imgList:
+  - key: 
+    imagesList:
+    - language: 0
+      sprite: {fileID: 0}
+    - language: 0
+      sprite: {fileID: 0}
+    - language: 0
+      sprite: {fileID: 0}
+  edit: {fileID: 0}

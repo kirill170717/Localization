@@ -11,52 +11,41 @@ using Newtonsoft.Json;
 public class LocalizationManager : MonoBehaviour
 {
     [SerializeField]
-    private string DefaultLanguage = "English";
+    private SystemLanguage DefaultLanguage = SystemLanguage.English;
 
-    private string currentLanguage;
-    private Dictionary<string, string> texts;
+    private SystemLanguage lastLanguage;
+    private static SystemLanguage currentLanguage;
+    private static Dictionary<string, string> texts;
 
-    //Создайте делегат и события для использования в файле LocaleText.cs:
+    //Создайте делегат и события для использования в файлах LocaleText.cs и DictionaryScript.cs:
     public delegate void LanguageChangedEventHandler();
-    public event LanguageChangedEventHandler languageChanged;
+    public static event LanguageChangedEventHandler LanguageChanged;
 
     private void Awake()
     {
-        //Загрузите user preferences, если таковые имеются:
-        if (PlayerPrefs.HasKey("LastLanguage"))
+        SystemLanguage newLang = lastLanguage;
+        try
         {
-            string newLang = PlayerPrefs.GetString("LastLanguage");
-            try
-            {
-                SetLocalization(newLang);
-                Lang.language = newLang;
-            }
-            catch (Exception e)
-            {
-                Debug.Log(e);
-                Debug.Log("Trying Default Language: " + DefaultLanguage);
-                SetLocalization(DefaultLanguage);
-                Lang.language = DefaultLanguage;
-            }
+            SetLocalization(newLang);
         }
-        else
+        catch (Exception e)
         {
-            SetLocalization(DefaultLanguage); //Если нет, мы используем значения по умолчанию.
-            Lang.language = DefaultLanguage;
+            Debug.Log(e);
+            Debug.Log("Trying Default Language: " + DefaultLanguage);
+            SetLocalization(DefaultLanguage);
         }
     }
     /*
     Устанавливает текущий язык, используемый функцией getText(), на указанный язык.
     <param name="language">Язык для изменения.</param>
     */
-    public void SetLocalization(string language)
+    public static void SetLocalization(SystemLanguage language)
     {
         TextAsset textAsset = Resources.Load<TextAsset>("Localizations/" + language);
         if (textAsset != null)
         {
             texts = JsonConvert.DeserializeObject<Dictionary<string, string>>(textAsset.text);
             currentLanguage = language;
-            Lang.language = language;
             OnLanguageChanged();
         }
         else
@@ -67,7 +56,7 @@ public class LocalizationManager : MonoBehaviour
     <param name="identifier">Идентификатор для поиска в текущей locale.</param>
     <returns>Строка, связанная с идентификатором. Если он не существует, то null.</returns>.
     */
-    public string GetText(string identifier)
+    public static string GetText(string identifier)
     {
         if (!texts.ContainsKey(identifier))
         {
@@ -76,15 +65,23 @@ public class LocalizationManager : MonoBehaviour
         }
         return texts[identifier];
     }
+    //public static string GetImage(string identifier)
+    //{
+    //    if (!texts.ContainsKey(identifier))
+    //    {
+    //        Debug.Log("Localization Error!: " + identifier + " does not have an associated string!");
+    //        return null;
+    //    }
+    //    return texts[identifier];
+    //}
 
     private void OnApplicationQuit()
     {
-        PlayerPrefs.SetString("LastLanguage", currentLanguage);
-        PlayerPrefs.SetString("Last", Lang.language);
+        lastLanguage = currentLanguage;
     }
 
-    protected virtual void OnLanguageChanged()
+    protected static void OnLanguageChanged()
     {
-        languageChanged?.Invoke();
+        LanguageChanged?.Invoke();
     }
 }
