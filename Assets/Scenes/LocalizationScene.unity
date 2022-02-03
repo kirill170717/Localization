@@ -561,7 +561,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 200
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -683,6 +683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f2156d79a56d6b43bb9c12631233946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 1041341309}
   textID: exit
 --- !u!1 &698090119
 GameObject:
@@ -776,6 +777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f2156d79a56d6b43bb9c12631233946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 1041341309}
   textID: newGame
 --- !u!1 &718195596
 GameObject:
@@ -1167,6 +1169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f2156d79a56d6b43bb9c12631233946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 1041341309}
   textID: settings
 --- !u!1 &980056756
 GameObject:
@@ -1346,6 +1349,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultLanguage: 10
+  textEditor: {fileID: 11400000, guid: 93d4ad27356037440b0ac99ec0df9a6f, type: 2}
+  dictionaryEditor: {fileID: 11400000, guid: 1990b9b1ac9536b439da8725ee8f7148, type: 2}
 --- !u!114 &1041341310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1358,6 +1363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9508467edcf79f941aeced333e2c083d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 1041341309}
 --- !u!1 &1061640152
 GameObject:
   m_ObjectHideFlags: 0
@@ -1601,7 +1607,7 @@ GameObject:
   - component: {fileID: 1201543738}
   - component: {fileID: 1201543740}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Flag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1673,10 +1679,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1201543736}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bf2c499368200141baa0d6b1c69dbbc, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ae4d4e019f249843b6527c5cd5ee668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  editor: {fileID: 0}
+  manager: {fileID: 1041341309}
+  textID: flag
 --- !u!1 &1534662198
 GameObject:
   m_ObjectHideFlags: 0
@@ -1927,6 +1934,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f2156d79a56d6b43bb9c12631233946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 1041341309}
   textID: continue
 --- !u!1 &1924943292
 GameObject:
@@ -2274,4 +2282,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f2156d79a56d6b43bb9c12631233946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 1041341309}
   textID: title

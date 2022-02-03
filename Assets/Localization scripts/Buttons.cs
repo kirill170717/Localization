@@ -2,20 +2,21 @@ using UnityEngine;
 
 public class Buttons : MonoBehaviour
 {
+    public LocalizationManager manager;
     private SystemLanguage lang;
     public void SetEnglish()
     {
         lang = SystemLanguage.English;
-        LocalizationManager.SetLocalization(lang);
+        manager.SetLocalization(lang);
     }
     public void SetRussian()
     {
         lang = SystemLanguage.Russian;
-        LocalizationManager.SetLocalization(lang);
+        manager.SetLocalization(lang);
     }
     public void SetGerman()
     {
         lang = SystemLanguage.German;
-        LocalizationManager.SetLocalization(lang);
+        manager.SetLocalization(lang);
     }
 }

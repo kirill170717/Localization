@@ -1,87 +1,109 @@
 ﻿using UnityEngine;
 using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Linq;
 /*
-Управляет всеми текстовыми переводами. Должен быть доступен для всего, что имеет текст.
-Может дать правильный перевод для любого сохраненного идентификатора.
-Автоматически загружает последний использованный язык, если таковой имеется, используя PlayerPrefs.
+Управляет всеми текстовыми переводами и изображениями. Должен быть доступен для всего, что имеет текст и изображение.
+Может дать правильный перевод и необходимое изображение для любого сохраненного идентификатора.
+Автоматически загружает последний использованный язык, если таковой имеется.
 */
-
 public class LocalizationManager : MonoBehaviour
 {
     [SerializeField]
     private SystemLanguage DefaultLanguage = SystemLanguage.English;
 
-    private SystemLanguage lastLanguage;
-    private static SystemLanguage currentLanguage;
-    private static Dictionary<string, string> texts;
+    private SystemLanguage currentLanguage;
 
-    //Создайте делегат и события для использования в файлах LocaleText.cs и DictionaryScript.cs:
+    public TextEditor textEditor;
+    public DictionaryEditor dictionaryEditor;
+
+    //Создайте делегат и события для использования в файлах LocaleText.cs и LocaleImage.cs:
     public delegate void LanguageChangedEventHandler();
-    public static event LanguageChangedEventHandler LanguageChanged;
+    public event LanguageChangedEventHandler LanguageChanged;
 
     private void Awake()
     {
-        SystemLanguage newLang = lastLanguage;
-        try
+        if (PlayerPrefs.HasKey("LastLanguage"))
         {
-            SetLocalization(newLang);
-        }
-        catch (Exception e)
-        {
-            Debug.Log(e);
-            Debug.Log("Trying Default Language: " + DefaultLanguage);
-            SetLocalization(DefaultLanguage);
-        }
-    }
-    /*
-    Устанавливает текущий язык, используемый функцией getText(), на указанный язык.
-    <param name="language">Язык для изменения.</param>
-    */
-    public static void SetLocalization(SystemLanguage language)
-    {
-        TextAsset textAsset = Resources.Load<TextAsset>("Localizations/" + language);
-        if (textAsset != null)
-        {
-            texts = JsonConvert.DeserializeObject<Dictionary<string, string>>(textAsset.text);
-            currentLanguage = language;
-            OnLanguageChanged();
+            SystemLanguage newLang = (SystemLanguage)PlayerPrefs.GetInt("LastLanguage");
+            try
+            {
+                SetLocalization(newLang);
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                Debug.Log("Trying Default Language: " + DefaultLanguage);
+                SetLocalization(DefaultLanguage);
+            }
         }
         else
-            throw new Exception("Localization Error!: " + language + " does not have a .json resource!");
+            SetLocalization(DefaultLanguage);
+    }
+    /*
+    Устанавливает текущий язык, используемый функцией GetText() и GetImage(), на указанный язык.
+    <param name="language">Язык для изменения.</param>
+    */
+    public void SetLocalization(SystemLanguage language)
+    {
+        currentLanguage = language;
+        OnLanguageChanged();
     }
     /*
     Получить текст по указанному идентификатору.
     <param name="identifier">Идентификатор для поиска в текущей locale.</param>
     <returns>Строка, связанная с идентификатором. Если он не существует, то null.</returns>.
     */
-    public static string GetText(string identifier)
+    public string GetText(string identifier)
     {
-        if (!texts.ContainsKey(identifier))
+        string text;
+        if (textEditor.txtList.Exists(x => x.key == identifier))
         {
-            Debug.Log("Localization Error!: " + identifier + " does not have an associated string!");
-            return null;
+            int keyId = textEditor.txtList.FindIndex(x => x.key == identifier);
+            if (textEditor.txtList[keyId].textsList.Exists(x => x.language == currentLanguage))
+            {
+                int textId = textEditor.txtList[keyId].textsList.FindIndex(x => x.language == currentLanguage);
+                text = textEditor.txtList[keyId].textsList[textId].text;
+                return text;
+            }
+            else
+                Debug.Log("Localization Error!: The '" + currentLanguage + "' key doesn't exist!");
         }
-        return texts[identifier];
+        else
+            Debug.Log("Localization Error!: The '" + identifier + "' key doesn't exist!");
+        return null;
     }
-    //public static string GetImage(string identifier)
-    //{
-    //    if (!texts.ContainsKey(identifier))
-    //    {
-    //        Debug.Log("Localization Error!: " + identifier + " does not have an associated string!");
-    //        return null;
-    //    }
-    //    return texts[identifier];
-    //}
+    /*
+    Получить изображение по указанному идентификатору.
+    <param name="identifier">Идентификатор для поиска в текущей locale.</param>
+    <returns>Изображение, связанное с идентификатором. Если он не существует, то null.</returns>.
+    */
+    public Sprite GetImage(string identifier)
+    {
+        Sprite sprite;
+        if (dictionaryEditor.imgList.Exists(x => x.key == identifier))
+        {
+            int keyId = dictionaryEditor.imgList.FindIndex(x => x.key == identifier);
+            if (dictionaryEditor.imgList[keyId].imagesList.Exists(x => x.language == currentLanguage))
+            {
+                int textId = dictionaryEditor.imgList[keyId].imagesList.FindIndex(x => x.language == currentLanguage);
+                sprite = dictionaryEditor.imgList[keyId].imagesList[textId].sprite;
+                return sprite;
+            }
+            else
+                Debug.Log("Localization Error!: The '" + currentLanguage + "' key doesn't exist!");
+        }
+        else
+            Debug.Log("Localization Error!: The '" + identifier + "' key doesn't exist!");
+        return null;
+    }
+
+    protected virtual void OnLanguageChanged()
+    {
+        LanguageChanged?.Invoke();
+    }
 
     private void OnApplicationQuit()
     {
-        lastLanguage = currentLanguage;
-    }
-
-    protected static void OnLanguageChanged()
-    {
-        LanguageChanged?.Invoke();
+        PlayerPrefs.SetInt("LastLanguage", (int)currentLanguage);
     }
 }
