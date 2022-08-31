@@ -5,14 +5,13 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Sprite))]
 public class LocaleImage : MonoBehaviour
 {
-    [SerializeField]
-    private string textID;
+    public string TextID;
 
-    private Image imageComponent;
+    private Image _imageComponent;
 
     private void Awake()
     {
-        imageComponent = GetComponent<Image>();
+        _imageComponent = GetComponent<Image>();
         LocalizationManager.OnLanguageChanged += UpdateLocale;
     }
 
@@ -21,13 +20,16 @@ public class LocaleImage : MonoBehaviour
         UpdateLocale();
     }
 
-    public void UpdateLocale()
+    private void UpdateLocale()
     {
         try
         {
-            Sprite response = LocalizationManager.OnImageReceived.Invoke(textID);
+            Sprite response = LocalizationManager.OnImageReceived.Invoke(TextID);
+
             if (response != null)
-                imageComponent.sprite = response;
+            {
+                _imageComponent.sprite = response;
+            }
         }
         catch (NullReferenceException e)
         {

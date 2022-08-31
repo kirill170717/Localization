@@ -7,7 +7,7 @@ public class LocalizationManager : MonoBehaviour
     private SystemLanguage _currentLanguage;
 
     public TextEditor TextEditor;
-    public ImagesEditor DictionaryEditor;
+    public ImagesEditor ImagesEditor;
 
     public static Action OnLanguageChanged;
     public static Action<SystemLanguage> OnLanguageSet;
@@ -36,21 +36,25 @@ public class LocalizationManager : MonoBehaviour
             }
         }
         else
+        {
             SetLocalization(DefaultLanguage);
+        }
     }
 
-    public void SetLocalization(SystemLanguage language)
+    private void SetLocalization(SystemLanguage language)
     {
         _currentLanguage = language;
         OnLanguageChanged.Invoke();
     }
 
-    public string GetText(string identifier)
+    private string GetText(string identifier)
     {
         string text;
+
         if (TextEditor.txtList.Exists(x => x.key == identifier))
         {
             int keyId = TextEditor.txtList.FindIndex(x => x.key == identifier);
+
             if (TextEditor.txtList[keyId].textsList.Exists(x => x.language == _currentLanguage))
             {
                 int textId = TextEditor.txtList[keyId].textsList.FindIndex(x => x.language == _currentLanguage);
@@ -58,30 +62,42 @@ public class LocalizationManager : MonoBehaviour
                 return text;
             }
             else
+            {
                 Debug.Log("Localization Error!: The '" + _currentLanguage + "' key doesn't exist!");
+            }
         }
         else
+        {
             Debug.Log("Localization Error!: The '" + identifier + "' key doesn't exist!");
+        }
+
         return null;
     }
 
-    public Sprite GetImage(string identifier)
+    private Sprite GetImage(string identifier)
     {
         Sprite sprite;
-        if (DictionaryEditor.imgList.Exists(x => x.key == identifier))
+
+        if (ImagesEditor.imgList.Exists(x => x.key == identifier))
         {
-            int keyId = DictionaryEditor.imgList.FindIndex(x => x.key == identifier);
-            if (DictionaryEditor.imgList[keyId].imagesList.Exists(x => x.language == _currentLanguage))
+            int keyId = ImagesEditor.imgList.FindIndex(x => x.key == identifier);
+
+            if (ImagesEditor.imgList[keyId].imagesList.Exists(x => x.language == _currentLanguage))
             {
-                int textId = DictionaryEditor.imgList[keyId].imagesList.FindIndex(x => x.language == _currentLanguage);
-                sprite = DictionaryEditor.imgList[keyId].imagesList[textId].sprite;
+                int textId = ImagesEditor.imgList[keyId].imagesList.FindIndex(x => x.language == _currentLanguage);
+                sprite = ImagesEditor.imgList[keyId].imagesList[textId].sprite;
                 return sprite;
             }
             else
+            {
                 Debug.Log("Localization Error!: The '" + _currentLanguage + "' key doesn't exist!");
+            }
         }
         else
+        {
             Debug.Log("Localization Error!: The '" + identifier + "' key doesn't exist!");
+        }
+
         return null;
     }
 

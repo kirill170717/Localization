@@ -9,7 +9,7 @@ public class TextEditor : ScriptableObject
     public class TextDict
     {
         public SystemLanguage language;
-        public string text;
+        [TextArea(1, 10)] public string text;
     }
     [Serializable]
     public class DictList
@@ -31,7 +31,7 @@ public class TextEditor : ScriptableObject
         {
             if (!txtList.Exists(x => x.key == key))
             {
-                txtList.Add(new TextEditor.DictList() { key = key });
+                txtList.Add(new DictList() { key = key });
                 Debug.Log("Added!");
             }
             else

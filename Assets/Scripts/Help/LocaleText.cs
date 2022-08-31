@@ -5,14 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(TMP_Text))]
 public class LocaleText : MonoBehaviour
 {
-    [SerializeField]
-    private string textID;
+    public string TextID;
 
-    private TMP_Text textComponent;
+    private TMP_Text _textComponent;
    
     private void Awake()
     {
-        textComponent = GetComponent<TMP_Text>();
+        _textComponent = GetComponent<TMP_Text>();
         LocalizationManager.OnLanguageChanged += UpdateLocale;
     }
 
@@ -21,13 +20,16 @@ public class LocaleText : MonoBehaviour
         UpdateLocale();
     }
 
-    public void UpdateLocale()
+    private void UpdateLocale()
     {
         try
         {
-            string response = LocalizationManager.OnTextReceived.Invoke(textID);
+            string response = LocalizationManager.OnTextReceived.Invoke(TextID);
+
             if (!string.IsNullOrEmpty(response))
-                textComponent.text = response;
+            {
+                _textComponent.text = response;
+            }
         }
         catch (NullReferenceException e)
         {

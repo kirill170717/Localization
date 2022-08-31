@@ -534,7 +534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879a3a0c08d1bc54a84eeb4aa97a4b97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textID: hello
+  TextID: hello
 --- !u!114 &967487104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -810,9 +810,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 007c6fdf16ab27f4ea97fba8dc436c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultLanguage: 10
-  textEditor: {fileID: 11400000, guid: 59c987019abbc814bab42d97d7e4870e, type: 2}
-  dictionaryEditor: {fileID: 11400000, guid: 0cf531c0bf3e8524ab50834162480eb4, type: 2}
+  DefaultLanguage: 30
+  TextEditor: {fileID: 11400000, guid: 59c987019abbc814bab42d97d7e4870e, type: 2}
+  ImagesEditor: {fileID: 11400000, guid: 0cf531c0bf3e8524ab50834162480eb4, type: 2}
 --- !u!114 &1041341310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -901,7 +901,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: -1
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -967,8 +967,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 486.76196, y: 183.53198}
-  m_SizeDelta: {x: 345.858, y: 289.332}
+  m_AnchoredPosition: {x: 432.33, y: 206.16}
+  m_SizeDelta: {x: 507.02, y: 289.332}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1201543738
 MonoBehaviour:
@@ -1020,7 +1020,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3746d03d78ec1c4c8d93c002053ac7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textID: flag
+  TextID: flag
 --- !u!1 &1983238779
 GameObject:
   m_ObjectHideFlags: 0
