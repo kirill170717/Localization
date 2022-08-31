@@ -1,27 +1,22 @@
 ﻿using UnityEngine;
 using System;
-using System.Linq;
-/*
-Управляет всеми текстовыми переводами и изображениями. Должен быть доступен для всего, что имеет текст и изображение.
-Может дать правильный перевод и необходимое изображение для любого сохраненного идентификатора.
-Автоматически загружает последний использованный язык, если таковой имеется.
-*/
 public class LocalizationManager : MonoBehaviour
 {
-    [SerializeField]
-    private SystemLanguage DefaultLanguage = SystemLanguage.English;
+    public static LocalizationManager instance;
+
+    public SystemLanguage DefaultLanguage = SystemLanguage.English;
 
     private SystemLanguage currentLanguage;
 
     public TextEditor textEditor;
     public DictionaryEditor dictionaryEditor;
 
-    //Создайте делегат и события для использования в файлах LocaleText.cs и LocaleImage.cs:
     public delegate void LanguageChangedEventHandler();
     public event LanguageChangedEventHandler LanguageChanged;
 
     private void Awake()
     {
+        instance = this;
         if (PlayerPrefs.HasKey("LastLanguage"))
         {
             SystemLanguage newLang = (SystemLanguage)PlayerPrefs.GetInt("LastLanguage");
@@ -39,20 +34,13 @@ public class LocalizationManager : MonoBehaviour
         else
             SetLocalization(DefaultLanguage);
     }
-    /*
-    Устанавливает текущий язык, используемый функцией GetText() и GetImage(), на указанный язык.
-    <param name="language">Язык для изменения.</param>
-    */
+
     public void SetLocalization(SystemLanguage language)
     {
         currentLanguage = language;
         OnLanguageChanged();
     }
-    /*
-    Получить текст по указанному идентификатору.
-    <param name="identifier">Идентификатор для поиска в текущей locale.</param>
-    <returns>Строка, связанная с идентификатором. Если он не существует, то null.</returns>.
-    */
+
     public string GetText(string identifier)
     {
         string text;
@@ -72,11 +60,7 @@ public class LocalizationManager : MonoBehaviour
             Debug.Log("Localization Error!: The '" + identifier + "' key doesn't exist!");
         return null;
     }
-    /*
-    Получить изображение по указанному идентификатору.
-    <param name="identifier">Идентификатор для поиска в текущей locale.</param>
-    <returns>Изображение, связанное с идентификатором. Если он не существует, то null.</returns>.
-    */
+
     public Sprite GetImage(string identifier)
     {
         Sprite sprite;
