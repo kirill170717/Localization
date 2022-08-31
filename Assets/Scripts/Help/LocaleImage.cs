@@ -13,7 +13,7 @@ public class LocaleImage : MonoBehaviour
     private void Awake()
     {
         imageComponent = GetComponent<Image>();
-        LocalizationManager.instance.LanguageChanged += UpdateLocale;
+        LocalizationManager.OnLanguageChanged += UpdateLocale;
     }
 
     private void Start()
@@ -25,7 +25,7 @@ public class LocaleImage : MonoBehaviour
     {
         try
         {
-            Sprite response = LocalizationManager.instance.GetImage(textID);
+            Sprite response = LocalizationManager.OnImageReceived.Invoke(textID);
             if (response != null)
                 imageComponent.sprite = response;
         }

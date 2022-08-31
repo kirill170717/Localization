@@ -1,19 +1,19 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-[RequireComponent(typeof(Text))]
+[RequireComponent(typeof(TMP_Text))]
 public class LocaleText : MonoBehaviour
 {
     [SerializeField]
     private string textID;
 
-    private Text textComponent;
+    private TMP_Text textComponent;
    
     private void Awake()
     {
-        textComponent = GetComponent<Text>();
-        LocalizationManager.instance.LanguageChanged += UpdateLocale;
+        textComponent = GetComponent<TMP_Text>();
+        LocalizationManager.OnLanguageChanged += UpdateLocale;
     }
 
     private void Start()
@@ -25,7 +25,7 @@ public class LocaleText : MonoBehaviour
     {
         try
         {
-            string response = LocalizationManager.instance.GetText(textID);
+            string response = LocalizationManager.OnTextReceived.Invoke(textID);
             if (!string.IsNullOrEmpty(response))
                 textComponent.text = response;
         }

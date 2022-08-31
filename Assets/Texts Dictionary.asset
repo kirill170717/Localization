@@ -13,4 +13,12 @@ MonoBehaviour:
   m_Name: Texts Dictionary
   m_EditorClassIdentifier: 
   key: 
-  txtList: []
+  txtList:
+  - key: hello
+    textsList:
+    - language: 10
+      text: Hello
+    - language: 30
+      text: "\u041F\u0440\u0438\u0432\u0435\u0442"
+    - language: 15
+      text: Hallo

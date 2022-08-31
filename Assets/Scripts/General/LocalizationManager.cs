@@ -2,21 +2,25 @@
 using System;
 public class LocalizationManager : MonoBehaviour
 {
-    public static LocalizationManager instance;
-
     public SystemLanguage DefaultLanguage = SystemLanguage.English;
 
-    private SystemLanguage currentLanguage;
+    private SystemLanguage _currentLanguage;
 
-    public TextEditor textEditor;
-    public ImagesEditor dictionaryEditor;
+    public TextEditor TextEditor;
+    public ImagesEditor DictionaryEditor;
 
-    public delegate void LanguageChangedEventHandler();
-    public event LanguageChangedEventHandler LanguageChanged;
+    public static Action OnLanguageChanged;
+    public static Action<SystemLanguage> OnLanguageSet;
+
+    public static Func<string, string> OnTextReceived;
+    public static Func<string, Sprite> OnImageReceived;
 
     private void Awake()
     {
-        instance = this;
+        OnLanguageSet += SetLocalization;
+        OnTextReceived += GetText;
+        OnImageReceived += GetImage;
+
         if (PlayerPrefs.HasKey("LastLanguage"))
         {
             SystemLanguage newLang = (SystemLanguage)PlayerPrefs.GetInt("LastLanguage");
@@ -37,24 +41,24 @@ public class LocalizationManager : MonoBehaviour
 
     public void SetLocalization(SystemLanguage language)
     {
-        currentLanguage = language;
-        OnLanguageChanged();
+        _currentLanguage = language;
+        OnLanguageChanged.Invoke();
     }
 
     public string GetText(string identifier)
     {
         string text;
-        if (textEditor.txtList.Exists(x => x.key == identifier))
+        if (TextEditor.txtList.Exists(x => x.key == identifier))
         {
-            int keyId = textEditor.txtList.FindIndex(x => x.key == identifier);
-            if (textEditor.txtList[keyId].textsList.Exists(x => x.language == currentLanguage))
+            int keyId = TextEditor.txtList.FindIndex(x => x.key == identifier);
+            if (TextEditor.txtList[keyId].textsList.Exists(x => x.language == _currentLanguage))
             {
-                int textId = textEditor.txtList[keyId].textsList.FindIndex(x => x.language == currentLanguage);
-                text = textEditor.txtList[keyId].textsList[textId].text;
+                int textId = TextEditor.txtList[keyId].textsList.FindIndex(x => x.language == _currentLanguage);
+                text = TextEditor.txtList[keyId].textsList[textId].text;
                 return text;
             }
             else
-                Debug.Log("Localization Error!: The '" + currentLanguage + "' key doesn't exist!");
+                Debug.Log("Localization Error!: The '" + _currentLanguage + "' key doesn't exist!");
         }
         else
             Debug.Log("Localization Error!: The '" + identifier + "' key doesn't exist!");
@@ -64,30 +68,25 @@ public class LocalizationManager : MonoBehaviour
     public Sprite GetImage(string identifier)
     {
         Sprite sprite;
-        if (dictionaryEditor.imgList.Exists(x => x.key == identifier))
+        if (DictionaryEditor.imgList.Exists(x => x.key == identifier))
         {
-            int keyId = dictionaryEditor.imgList.FindIndex(x => x.key == identifier);
-            if (dictionaryEditor.imgList[keyId].imagesList.Exists(x => x.language == currentLanguage))
+            int keyId = DictionaryEditor.imgList.FindIndex(x => x.key == identifier);
+            if (DictionaryEditor.imgList[keyId].imagesList.Exists(x => x.language == _currentLanguage))
             {
-                int textId = dictionaryEditor.imgList[keyId].imagesList.FindIndex(x => x.language == currentLanguage);
-                sprite = dictionaryEditor.imgList[keyId].imagesList[textId].sprite;
+                int textId = DictionaryEditor.imgList[keyId].imagesList.FindIndex(x => x.language == _currentLanguage);
+                sprite = DictionaryEditor.imgList[keyId].imagesList[textId].sprite;
                 return sprite;
             }
             else
-                Debug.Log("Localization Error!: The '" + currentLanguage + "' key doesn't exist!");
+                Debug.Log("Localization Error!: The '" + _currentLanguage + "' key doesn't exist!");
         }
         else
             Debug.Log("Localization Error!: The '" + identifier + "' key doesn't exist!");
         return null;
     }
 
-    protected virtual void OnLanguageChanged()
-    {
-        LanguageChanged?.Invoke();
-    }
-
     private void OnApplicationQuit()
     {
-        PlayerPrefs.SetInt("LastLanguage", (int)currentLanguage);
+        PlayerPrefs.SetInt("LastLanguage", (int)_currentLanguage);
     }
 }
