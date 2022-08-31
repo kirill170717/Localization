@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "Images Dictionary", menuName = "Language/Images Dictionary", order = 50)]
-public class DictionaryEditor : ScriptableObject
+public class ImagesEditor : ScriptableObject
 {
     [Serializable]
     public class ImgDict
@@ -31,7 +31,7 @@ public class DictionaryEditor : ScriptableObject
         {
             if (!imgList.Exists(x => x.key == key))
             {
-                imgList.Add(new DictionaryEditor.DictList() { key = key });
+                imgList.Add(new DictList() { key = key });
                 Debug.Log("Added!");
             }
             else

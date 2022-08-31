@@ -9,7 +9,7 @@ public class LocalizationManager : MonoBehaviour
     private SystemLanguage currentLanguage;
 
     public TextEditor textEditor;
-    public DictionaryEditor dictionaryEditor;
+    public ImagesEditor dictionaryEditor;
 
     public delegate void LanguageChangedEventHandler();
     public event LanguageChangedEventHandler LanguageChanged;
