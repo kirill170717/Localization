@@ -1,2 +1,2 @@
 # Localization
- Unity localization scrips
+ Unity localization scripts
